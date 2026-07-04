@@ -8,12 +8,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(process.cwd(), 'src'),
       '@app': path.resolve(process.cwd(), 'src/app'),
-      '@assets': path.resolve(process.cwd(), 'src/assets'),
       '@components': path.resolve(process.cwd(), 'src/components'),
       '@hooks': path.resolve(process.cwd(), 'src/hooks'),
       '@pages': path.resolve(process.cwd(), 'src/pages'),
       '@services': path.resolve(process.cwd(), 'src/services'),
-      '@utils': path.resolve(process.cwd(), 'src/utils'),
     },
   },
 });
