@@ -1,0 +1,40 @@
+{
+  "name": "@megamind-classes/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Express API for MEGAMIND CLASSES.",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcryptjs": "latest",
+    "cloudinary": "latest",
+    "compression": "latest",
+    "cookie-parser": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "express-validator": "latest",
+    "express-rate-limit": "latest",
+    "helmet": "latest",
+    "jsonwebtoken": "latest",
+    "mongoose": "latest",
+    "morgan": "latest",
+    "multer": "latest",
+    "nodemailer": "latest"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "eslint": "latest",
+    "globals": "latest",
+    "jest": "latest",
+    "nodemon": "latest",
+    "prettier": "latest",
+    "supertest": "latest"
+  }
+}
