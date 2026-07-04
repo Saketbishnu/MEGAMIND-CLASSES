@@ -12,6 +12,7 @@ export default defineConfig({
       '@components': path.resolve(process.cwd(), 'src/components'),
       '@features': path.resolve(process.cwd(), 'src/features'),
       '@hooks': path.resolve(process.cwd(), 'src/hooks'),
+      '@lib': path.resolve(process.cwd(), 'src/lib'),
       '@pages': path.resolve(process.cwd(), 'src/pages'),
       '@services': path.resolve(process.cwd(), 'src/services'),
       '@utils': path.resolve(process.cwd(), 'src/utils'),

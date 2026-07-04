@@ -65,6 +65,18 @@ a {
 }
 
 @layer components {
+  .text-brand-display {
+    @apply font-display tracking-tight text-slate-900 dark:text-slate-100;
+  }
+
+  .text-brand-body {
+    @apply font-sans text-slate-600 dark:text-slate-300;
+  }
+
+  .icon-style-outline {
+    @apply inline-flex items-center justify-center rounded-xl;
+  }
+
   .card-surface {
     @apply rounded-3xl border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/80;
   }
@@ -108,5 +120,42 @@ a {
   .section-shell {
     @apply mx-auto w-full max-w-7xl;
   }
-}
 
+  .bg-pattern-grid {
+    background-image: linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .bg-pattern-grid-dark {
+    background-image: linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .bg-pattern-dots {
+    background-image: radial-gradient(circle, rgba(17, 134, 216, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-pattern-dots-dark {
+    background-image: radial-gradient(circle, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .section-bg-default {
+    @apply bg-transparent;
+  }
+
+  .section-bg-soft-blue {
+    @apply bg-gradient-to-b from-brand-50/60 via-transparent to-transparent dark:from-brand-950/20;
+  }
+
+  .section-bg-warm-accent {
+    @apply bg-gradient-to-b from-accent-50/60 via-transparent to-transparent dark:from-accent-950/20;
+  }
+
+  .section-bg-neutral-grid {
+    @apply bg-pattern-grid dark:bg-pattern-grid-dark;
+  }
+}
