@@ -4,6 +4,7 @@ import { HomePage } from '@pages/HomePage.jsx';
 import { AboutPage } from '@pages/AboutPage.jsx';
 import { CoursesPage } from '@pages/CoursesPage.jsx';
 import { GalleryPage } from '@pages/GalleryPage.jsx';
+import { ContactPage } from '@pages/ContactPage.jsx';
 import { NotFoundPage } from '@pages/NotFoundPage.jsx';
 
 export const router = createBrowserRouter([
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: 'gallery',
         element: <GalleryPage />,
+      },
+      {
+        path: 'contact',
+        element: <ContactPage />,
       },
       {
         path: '*',
