@@ -1,0 +1,9 @@
+export { default as Admin } from './Admin.js';
+export { default as Student } from './Student.js';
+export { default as Course } from './Course.js';
+export { default as Batch } from './Batch.js';
+export { default as Admission } from './Admission.js';
+export { default as Attendance } from './Attendance.js';
+export { default as Result } from './Result.js';
+export { default as Gallery } from './Gallery.js';
+export { default as ContactMessage } from './ContactMessage.js';
