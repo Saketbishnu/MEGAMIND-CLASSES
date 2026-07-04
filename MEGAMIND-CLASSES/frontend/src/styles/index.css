@@ -78,43 +78,43 @@ a {
   }
 
   .card-surface {
-    @apply rounded-3xl border border-slate-200/80 bg-white/90 shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/80;
+    @apply rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
   }
 
   .card-interactive {
-    @apply card-surface transition duration-300 hover:-translate-y-1 hover:shadow-card;
+    @apply card-surface transition duration-300 hover:-translate-y-0.5 hover:shadow-md;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:focus-visible:ring-offset-slate-950;
+    @apply inline-flex min-h-11 items-center justify-center rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:focus-visible:ring-offset-slate-950;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 dark:focus-visible:ring-offset-slate-950;
+    @apply inline-flex min-h-11 items-center justify-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 dark:focus-visible:ring-offset-slate-950;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-500 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-brand-400 dark:hover:text-brand-300 dark:focus-visible:ring-offset-slate-950;
+    @apply inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-500 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-brand-400 dark:hover:text-brand-300 dark:focus-visible:ring-offset-slate-950;
   }
 
   .shadow-soft {
-    box-shadow: 0 10px 45px -20px rgba(2, 6, 23, 0.35);
+    box-shadow: 0 10px 30px -22px rgba(2, 6, 23, 0.28);
   }
 
   .shadow-card {
-    box-shadow: 0 20px 60px -24px rgba(15, 23, 42, 0.28);
+    box-shadow: 0 14px 32px -24px rgba(15, 23, 42, 0.24);
   }
 
   .glass-panel {
-    @apply rounded-3xl border border-white/40 bg-white/70 shadow-soft backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-900/60;
+    @apply rounded-3xl border border-white/50 bg-white/85 shadow-sm backdrop-blur-md dark:border-slate-800/70 dark:bg-slate-900/85;
   }
 
   .hover-lift {
-    @apply transition duration-300 hover:-translate-y-1 hover:shadow-card;
+    @apply transition duration-300 hover:-translate-y-0.5 hover:shadow-md;
   }
 
   .section-spacing {
-    @apply px-4 py-16 sm:px-6 lg:px-8 lg:py-24;
+    @apply px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16;
   }
 
   .section-shell {
@@ -157,5 +157,13 @@ a {
 
   .section-bg-neutral-grid {
     @apply bg-pattern-grid dark:bg-pattern-grid-dark;
+  }
+
+  section[aria-labelledby$='-hero-title'] h1 {
+    @apply text-3xl leading-tight sm:text-4xl lg:text-5xl;
+  }
+
+  section[aria-labelledby$='-hero-title'] p {
+    @apply text-sm leading-7 sm:text-base;
   }
 }
