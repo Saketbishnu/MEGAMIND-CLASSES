@@ -11,7 +11,6 @@ export default defineConfig({
       '@components': path.resolve(process.cwd(), 'src/components'),
       '@lib': path.resolve(process.cwd(), 'src/lib'),
       '@pages': path.resolve(process.cwd(), 'src/pages'),
-      '@services': path.resolve(process.cwd(), 'src/services'),
     },
   },
 });
