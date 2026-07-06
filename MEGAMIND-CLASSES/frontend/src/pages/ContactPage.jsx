@@ -156,19 +156,32 @@ export function ContactPage() {
   });
   const [touched, setTouched] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [serverErrors, setServerErrors] = useState({});
 
   const errors = useMemo(() => validateForm(values), [values]);
   const hasErrors = Object.keys(errors).length > 0;
 
+  const apiFieldMap = {
+    name: 'studentName',
+    phone: 'mobile',
+    email: 'email',
+    subject: 'className',
+    message: 'message',
+  };
+
   const handleChange = (field) => (event) => {
     setValues((current) => ({ ...current, [field]: event.target.value }));
+    setServerErrors((current) => ({ ...current, [field]: '' }));
+    setSubmitError('');
   };
 
   const handleBlur = (field) => () => {
     setTouched((current) => ({ ...current, [field]: true }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setTouched({
       studentName: true,
@@ -178,8 +191,78 @@ export function ContactPage() {
       className: true,
       message: true,
     });
-    if (!hasErrors) {
+
+    if (hasErrors) {
+      return;
+    }
+
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+    if (!apiBaseUrl) {
+      setSubmitError('Contact service is not configured. Please try again later.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError('');
+    setServerErrors({});
+    setSubmitted(false);
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.studentName.trim(),
+          email: values.email.trim(),
+          phone: values.mobile.trim(),
+          subject: `Class: ${values.className.trim()}`,
+          message: `Parent Name: ${values.parentName.trim()}\n\n${values.message.trim()}`,
+        }),
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.success) {
+        if (Array.isArray(result?.errors) && result.errors.length > 0) {
+          const nextTouched = { ...touched };
+          const nextServerErrors = {};
+
+          result.errors.forEach(({ field, message }) => {
+            const formField = apiFieldMap[field] || field;
+            nextTouched[formField] = true;
+            nextServerErrors[formField] = message;
+          });
+
+          setTouched(nextTouched);
+          setServerErrors(nextServerErrors);
+        }
+
+        const errorMessage =
+          result?.errors?.map((item) => item.message).join(' ') ||
+          result?.message ||
+          'Failed to submit your message. Please try again.';
+        setSubmitError(errorMessage);
+        return;
+      }
+
       setSubmitted(true);
+      setServerErrors({});
+      setValues({
+        studentName: '',
+        parentName: '',
+        mobile: '',
+        email: '',
+        className: '',
+        message: '',
+      });
+      setTouched({});
+    } catch {
+      setSubmitError('Unable to reach the server. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -194,6 +277,8 @@ export function ContactPage() {
     });
     setTouched({});
     setSubmitted(false);
+    setSubmitError('');
+    setServerErrors({});
   };
 
   return (
@@ -261,7 +346,7 @@ export function ContactPage() {
               <SectionHeader
                 eyebrow="Contact Form"
                 title="Send us a message"
-                description="This is a frontend-only controlled form with local validation."
+                description="Share your enquiry and our team will get back to you shortly."
               />
               <Card className="glass-panel">
                 <form className="space-y-5" onSubmit={handleSubmit} noValidate>
@@ -272,7 +357,9 @@ export function ContactPage() {
                     <ContactField
                       id="studentName"
                       label="Student Name"
-                      error={touched.studentName ? errors.studentName : ''}
+                      error={
+                        (touched.studentName ? errors.studentName : '') || serverErrors.studentName || ''
+                      }
                     >
                       <Input
                         id="studentName"
@@ -303,7 +390,7 @@ export function ContactPage() {
                     <ContactField
                       id="mobile"
                       label="Mobile Number"
-                      error={touched.mobile ? errors.mobile : ''}
+                      error={(touched.mobile ? errors.mobile : '') || serverErrors.mobile || ''}
                     >
                       <Input
                         id="mobile"
@@ -317,7 +404,7 @@ export function ContactPage() {
                     <ContactField
                       id="email"
                       label="Email Address"
-                      error={touched.email ? errors.email : ''}
+                      error={(touched.email ? errors.email : '') || serverErrors.email || ''}
                     >
                       <Input
                         id="email"
@@ -333,7 +420,7 @@ export function ContactPage() {
                   <ContactField
                     id="className"
                     label="Class"
-                    error={touched.className ? errors.className : ''}
+                    error={(touched.className ? errors.className : '') || serverErrors.className || ''}
                   >
                     <Select
                       id="className"
@@ -354,7 +441,7 @@ export function ContactPage() {
                   <ContactField
                     id="message"
                     label="Message"
-                    error={touched.message ? errors.message : ''}
+                    error={(touched.message ? errors.message : '') || serverErrors.message || ''}
                   >
                     <Textarea
                       id="message"
@@ -366,15 +453,27 @@ export function ContactPage() {
                     />
                   </ContactField>
 
+                  {submitError ? (
+                    <p
+                      className="rounded-2xl border border-danger-200 bg-danger-50 px-4 py-3 text-sm text-danger-700 dark:border-danger-900/40 dark:bg-danger-950/20 dark:text-danger-300"
+                      role="alert"
+                    >
+                      {submitError}
+                    </p>
+                  ) : null}
+
                   {submitted ? (
-                    <p className="rounded-2xl border border-success-200 bg-success-50 px-4 py-3 text-sm text-success-700 dark:border-success-900/40 dark:bg-success-950/20 dark:text-success-300">
-                      Your message is ready to be sent once backend integration is added.
+                    <p
+                      className="rounded-2xl border border-success-200 bg-success-50 px-4 py-3 text-sm text-success-700 dark:border-success-900/40 dark:bg-success-950/20 dark:text-success-300"
+                      role="status"
+                    >
+                      Thank you. Your message has been submitted successfully.
                     </p>
                   ) : null}
 
                   <div className="flex flex-col gap-3 sm:flex-row">
-                    <PrimaryButton type="submit" className="group">
-                      Send Message
+                    <PrimaryButton type="submit" className="group" disabled={isSubmitting}>
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                       <FiSend className="transition group-hover:translate-x-0.5" aria-hidden="true" />
                     </PrimaryButton>
                     <OutlineButton type="button" onClick={handleReset}>
